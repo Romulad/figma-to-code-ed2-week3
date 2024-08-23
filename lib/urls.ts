@@ -1,0 +1,10 @@
+export const dashboardPageUrl: string = "/dashboard";
+export const newsPageUrl: string = "/news"; 
+export const activitiesPageUrl: string = "/activities";
+export const cardsPageUrl: string = "/cards"; 
+export const reportsPageUrl: string = "/reports";
+export const notifPageUrl: string = "/notifications";
+export const billingPageUrl: string = "/billing";
+export const invoicesPageUrl: string = "/invoices"; 
+export const helpCenterPageUrl: string = "/help-center";
+export const settingsPageUrl: string = "/settings";
