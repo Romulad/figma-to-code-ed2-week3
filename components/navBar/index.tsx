@@ -6,11 +6,14 @@ import {
     AddWalletIcon, 
     ChevronDownIcon, 
     HamburguerIcon, 
-    MoonIcon
+    MoonIcon,
+    SunIcon
 } from "@/assets/iconComponents";
-import { sidebarStateContext } from "@/lib/context";
+import { sidebarStateContext, themeContext } from "@/lib/context";
+import { themeMode } from "@/lib/constants";
 
 export default function NavBar(){
+    const { theme, setTheme } = useContext(themeContext);
     const [currencyIsOpen, setCurrencyIsOpen] = useState(false);
     const { setSidebarState } = useContext(sidebarStateContext);
 
@@ -69,8 +72,11 @@ export default function NavBar(){
                     </ul>
                 </div>
 
-                <button className="flex items-center group ">
-                    <MoonIcon className="border p-3 rounded-xl group-focus:border-2"/>
+                <button className="flex items-center px-2 border focus:border-2 rounded-xl "
+                onClick={setTheme}>
+                    {theme === themeMode.light ?
+                    <MoonIcon className="size-6"/> : 
+                    <SunIcon className="size-7"/>}
                 </button>
             </div>
         </nav>

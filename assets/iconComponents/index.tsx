@@ -4,6 +4,7 @@ import AddWalletIcon from "./addWalletIcon";
 import MoonIcon from "./moonIcon";
 import HamburguerIcon from "./hamburguerIcon";
 import XIcon from "./xIcon";
+import SunIcon from "./sunIcon";
 
 export {
     ChevronDownIcon,
@@ -11,5 +12,6 @@ export {
     AddWalletIcon,
     MoonIcon,
     HamburguerIcon,
-    XIcon
+    XIcon,
+    SunIcon
 }
