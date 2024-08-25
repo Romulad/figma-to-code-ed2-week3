@@ -4,7 +4,7 @@ import "@/ui/globals.css";
 export const metadata: Metadata = {
   title: {
     template: "Tokena - %s",
-    default: "Dashboard"
+    default: "Tokena"
   },
   authors: [{name: "Romuald oluwatobi", url: "https://www.linkedin.com/in/romuald-oluwatobi"}],
   creator: "Romuald oluwatobi",
