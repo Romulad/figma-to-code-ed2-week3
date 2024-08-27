@@ -9,6 +9,9 @@ const config: Config = {
   darkMode: "selector",
   theme: {
     extend: {
+      colors: {
+        "dark": "rgba(23, 25, 35, 1)"
+      },
       maxWidth: {
         "expand" : "1536px"
       }

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-import logo from "@/assets/icons/logo.svg";
+import profileImg from "@/assets/images/profileImage.svg";
 import { 
     ChevronDownIcon,
     ReportsIcon,
@@ -24,7 +24,10 @@ import {
     reportsPageUrl,
     settingsPageUrl
 } from "@/lib/urls";
-import { sidebarStateContext } from "@/lib/context";
+import { sidebarStateContext, themeContext } from "@/lib/context";
+import { themeMode } from "@/lib/constants";
+import { Logo } from "@/components";
+
 
 type SideBarItem = {
     name: string,
@@ -113,7 +116,7 @@ const DropdownSidebarItem = (
     return(
         <div className="relative">
             <button className={`flex justify-between gap-2 items-center rounded-xl p-3 w-full 
-            ${currentPathname === sideBarItem.path ? "bg-blue-500 text-white" : "hover:bg-blue-100"}`}
+            ${currentPathname === sideBarItem.path ? "bg-blue-500 text-white" : "hover:bg-blue-100 dark:hover:bg-blue-500"}`}
             onClick={()=>{setIsOpen(!isOpen)}}>
                 <div className="flex gap-3 items-center">
                     <ReportsIcon />
@@ -124,12 +127,12 @@ const DropdownSidebarItem = (
                 <ChevronDownIcon 
                 className={`duration-300 ${isOpen ? "rotate-180" : "rotate-0"}`}/>
             </button>
-            <ul className={`${isOpen ? "flex" : "hidden"} flex-col gap-1 my-4 p-1 rounded-xl shadow-lg absolute bg-white w-full left-0`}>
+            <ul className={`${isOpen ? "flex" : "hidden"} flex-col gap-1 my-4 p-1 rounded-xl shadow-lg absolute bg-white dark:bg-slate-700 w-full left-0`}>
                 {sideBarItem.dropdownItems
                 ?.map((item, index)=>(
                     <li key={index}>
                         <Link  href={item.path}
-                        className="hover:bg-blue-100 p-3 rounded-xl w-full block">
+                        className="hover:bg-blue-100 dark:hover:bg-slate-600 p-3 rounded-xl w-full block">
                             {item.name}
                         </Link>
                     </li>      
@@ -143,6 +146,7 @@ export default function SideBar(){
     const [currentPathname, setCurrentPathname] = useState<string>("")
     const pathname = usePathname();
     const { sidebarState, setSidebarState } = useContext(sidebarStateContext);
+    const { theme } = useContext(themeContext)
 
     useEffect(()=>{
         setCurrentPathname(pathname)
@@ -150,24 +154,22 @@ export default function SideBar(){
 
     return(
         <>
-            <div className={`fixed top-0 w-64 h-full bg-white border-r pt-4 flex flex-col
+            <div className={`fixed top-0 w-64 h-full bg-white dark:bg-dark border-r dark:border-gray-700 pt-4 flex flex-col
             ${sidebarState ? " left-0 " : " -left-full"} lg:left-0 duration-300 sm:duration-500 ease-linear z-[999]
             shadow-xl lg:shadow-none`}>
                 <div className="flex">
                     <Link
                     href={dashboardPageUrl}
-                    className="ps-4">
-                        <Image 
-                        alt="Tokena"
-                        src={logo}/>
+                    className="px-4">
+                        <Logo />
                     </Link>
                 </div>
 
                 <div className="mt-8 mb-4 px-4 flex items-center justify-between">
-                    <h2 className="text-gray-500">
+                    <h2 className="text-gray-500 dark:text-white">
                         Menu
                     </h2>
-                    <button className="lg:hidden bg-slate-100 p-1 rounded-lg focus:border-2"
+                    <button className="lg:hidden bg-slate-100 dark:bg-slate-900 p-1 rounded-lg focus:border-2 border-gray-700"
                     onClick={setSidebarState}>
                         <XIcon />
                     </button>
@@ -186,8 +188,9 @@ export default function SideBar(){
 
                             <Link href={sideBarItem.path}
                             className={`flex gap-3 items-center rounded-xl p-3 
-                            ${currentPathname === sideBarItem.path ? "bg-blue-500 text-white" : "hover:bg-blue-100"}`}>
-                                {currentPathname === sideBarItem.path ?
+                            ${currentPathname === sideBarItem.path ? "bg-blue-500 text-white" : "hover:bg-blue-100 dark:hover:bg-blue-500"}`}>
+                                {currentPathname === sideBarItem.path ||
+                                theme === themeMode.dark ?
                                 <Image
                                 alt={sideBarItem.name}
                                 src={sideBarItem.whiteIcon}/> :
@@ -205,14 +208,17 @@ export default function SideBar(){
                     
                     <div className="p-2">
                         <button className="text-start flex gap-2 items-center 
-                        hover:bg-blue-100 rounded-lg p-2">
-                            <div className="p-6 bg-slate-200 rounded-full ">
-                            </div>
+                        hover:bg-blue-100 dark:hover:bg-slate-800 rounded-lg p-2">
+                            <Image 
+                            src={profileImg}
+                            alt="John Doe"/>
+                            {/* <div className="p-6 bg-slate-200 rounded-full ">
+                            </div> */}
                             
                             <div className="grow flex justify-between gap-2 items-center">
                                 <div className="flex flex-col gap-1 text-xs">
                                     <span className="font-medium">
-                                        Romuald oluwatobi
+                                        John Doe
                                     </span>
                                     <span className="text-gray-500">
                                         youremail@example.com
@@ -225,7 +231,7 @@ export default function SideBar(){
                 </div>
             </div>
 
-            <div className={`fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.5)] z-[998] ${sidebarState ? "block" : "hidden"} lg:hidden`}
+            <div className={`fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.5)] dark:bg-slate-50 dark:opacity-30 z-[998] ${sidebarState ? "block" : "hidden"} lg:hidden`}
             onClick={setSidebarState}></div>
         </>
     )

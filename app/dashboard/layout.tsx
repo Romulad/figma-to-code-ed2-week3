@@ -23,7 +23,7 @@ export default function DashboardLayout(
             currentTheme && 
             (currentTheme === themeMode.light || currentTheme === themeMode.dark)
         ){
-            /* This preference take precendent over all other preferences */
+            /* This preference take precendence over all other preferences */
             setTheme(currentTheme);
             currentTheme === themeMode.dark && documtElement?.classList.add(currentTheme);
         }else if(prefersDark){
@@ -61,7 +61,9 @@ export default function DashboardLayout(
                 <SideBar />
                 <main className="ms-0 lg:ms-64">
                     <NavBar />
-                    { children }
+                    <div className="px-6">
+                        { children }
+                    </div>
                 </main>
             </sidebarStateContext.Provider>
         </themeContext.Provider>

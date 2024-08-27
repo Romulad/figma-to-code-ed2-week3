@@ -7,6 +7,12 @@ export const metadata : Metadata = {
 
 export default function DashboardPage(){
     return(
-        <h1></h1>
+        <>
+            <div className="flex flex-wrap gap-5">
+                <div className="border dark:border-gray-700 rounded-xl">
+                    
+                </div>
+            </div>
+        </>
     )
 }
