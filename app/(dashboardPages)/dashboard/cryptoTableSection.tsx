@@ -1,16 +1,17 @@
 "use client"
 
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-import Chart from "react-apexcharts";
+const Chart = dynamic(() => import('react-apexcharts'), {ssr: false,})
 
 import { ChevronDownIcon, SearchIcon } from "@/assets/iconComponents";
 import { CategoriesData, CoinListData } from "@/api/definitions";
 import { fetchCategories, fetchCoinsList } from "@/api/actions";
-import {
+import { 
     DataSplitter
 } from "@/components";
 
-export default function CryptoTableSection(){
+export default function CryptosTableSection(){
     const [searchStr, setSearchStr] = useState<string>('');
     const [categories, setCategories] = useState<CategoriesData>([]);
     const [coinsList, setCoinsList] = useState<CoinListData>([]);

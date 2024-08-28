@@ -176,7 +176,7 @@ export default function DataSplitter(
             <div className="mt-10 flex items-center justify-around">
                 <button className="disabled:text-gray-600" onClick={goToPreviousPage}
                 disabled={currentScreen === 1}>
-                    <ChevronDownIcon className="-rotate-90 size-4"/>
+                    <ChevronDownIcon className="rotate-90 size-4"/>
                 </button>
 
                 <div className="flex gap-x-1 *:rounded-lg *:px-3 *:py-2 
@@ -256,7 +256,7 @@ export default function DataSplitter(
 
                 <button className="disabled:text-gray-600" onClick={goToNextPage}
                 disabled={currentScreen === totalSrceen}>
-                    <ChevronDownIcon className="rotate-90 size-4"/>
+                    <ChevronDownIcon className="-rotate-90 size-4"/>
                 </button>
             </div>
         }
