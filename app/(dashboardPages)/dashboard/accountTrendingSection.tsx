@@ -10,7 +10,6 @@ import {
 } from "@/assets/iconComponents";
 import { fetchTrendingData } from "@/api/actions";
 import { TrendingData } from "@/api/definitions";
-import { start } from "repl";
 
 export default function AccountTrendingSection(){
     const [trendingData, setTrendingData] = useState<TrendingData>({coins:[]});

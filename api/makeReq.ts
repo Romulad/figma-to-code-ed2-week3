@@ -19,8 +19,8 @@ export default async function makeReq(
             const data = await resp.json();
             return data;
         }
-    
-        throw new Error(`Request error with ${resp.status} status code`)
+        
+        throw new Error(`Http response with ${resp.status} status code`)
     }catch(e){
         throw new Error(`Error: ${e}`)
     }

@@ -25,3 +25,23 @@ export type TrendingData = {
         }
     }[]
 }
+
+export type CategoriesData = {
+    category_id: string,
+    name: string
+}[]
+
+export type CoinListData =  {
+    id: string,
+    symbol: string,
+    name: string,
+    image: string,
+    current_price: number,
+    market_cap: number,
+    market_cap_rank: number,
+    total_volume: Number,
+    price_change_percentage_24h: number,
+    sparkline_in_7d: {
+      price: number[]
+    }
+}[]

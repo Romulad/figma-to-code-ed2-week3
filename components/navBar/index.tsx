@@ -58,7 +58,7 @@ export default function NavBar(){
                     </button>
 
                     <ul className={`${currencyIsOpen ? "block" : "hidden"}
-                    bg-white dark:bg-slate-800 dark:divide-gray-700 absolute left-0 py-1 mt-3 w-full shadow-lg rounded-xl 
+                    bg-white dark:bg-slate-800 dark:divide-gray-700 absolute left-0 py-1 mt-1 w-full shadow-lg rounded-xl 
                     text-gray-900 divide-y text-sm dark:text-slate-100`}>
                         {["CAD", "EUR", "XCD"]
                         .map((currenc, index)=>(

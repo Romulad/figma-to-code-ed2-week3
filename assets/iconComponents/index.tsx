@@ -9,6 +9,7 @@ import ChevronUpDownIcon from "./chevronUpDownIcon";
 import ArrowUpIcon from "./arrowUpIcon";
 import TradeDownIcon from "./tradeDownIcon";
 import TradeUpIcon from "./tradeUpIcon";
+import SearchIcon from "./searchIcon";
 
 export {
     ChevronDownIcon,
@@ -21,5 +22,6 @@ export {
     ChevronUpDownIcon,
     ArrowUpIcon,
     TradeDownIcon,
-    TradeUpIcon
+    TradeUpIcon,
+    SearchIcon
 }
