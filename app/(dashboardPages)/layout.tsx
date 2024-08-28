@@ -61,7 +61,7 @@ export default function DashboardLayout(
                 <SideBar />
                 <main className="ms-0 lg:ms-64">
                     <NavBar />
-                    <div className="px-6">
+                    <div className="px-4 sm:px-6 mt-8">
                         { children }
                     </div>
                 </main>

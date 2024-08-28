@@ -6,6 +6,9 @@ import HamburguerIcon from "./hamburguerIcon";
 import XIcon from "./xIcon";
 import SunIcon from "./sunIcon";
 import ChevronUpDownIcon from "./chevronUpDownIcon";
+import ArrowUpIcon from "./arrowUpIcon";
+import TradeDownIcon from "./tradeDownIcon";
+import TradeUpIcon from "./tradeUpIcon";
 
 export {
     ChevronDownIcon,
@@ -15,5 +18,8 @@ export {
     HamburguerIcon,
     XIcon,
     SunIcon,
-    ChevronUpDownIcon
+    ChevronUpDownIcon,
+    ArrowUpIcon,
+    TradeDownIcon,
+    TradeUpIcon
 }

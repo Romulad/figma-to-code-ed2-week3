@@ -38,3 +38,4 @@ next-env.d.ts
 #
 views
 flow.md
+.env
