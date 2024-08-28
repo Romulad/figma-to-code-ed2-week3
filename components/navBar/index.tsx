@@ -18,7 +18,7 @@ export default function NavBar(){
     const { setSidebarState } = useContext(sidebarStateContext);
 
     return(
-        <nav className="sticky top-0 flex justify-between items-center border-b dark:border-gray-700 py-3 px-4 sm:px-6  
+        <nav className="sticky bg-white dark:bg-dark z-20 top-0 flex justify-between items-center border-b dark:border-gray-700 py-3 px-4 sm:px-6  
         max-[460px]:text-sm">
             <div className="flex items-center gap-14">
                 <div className="flex lg:block items-center gap-2 min-[460px]:gap-6">

@@ -14,6 +14,9 @@ const config: Config = {
       },
       maxWidth: {
         "expand" : "1536px"
+      },
+      width:{
+        "r1/2": "48%"
       }
     },
   },

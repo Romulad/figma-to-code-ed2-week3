@@ -29,11 +29,15 @@ export default function AccountTrendingSection(){
     }, [])
 
     function onShowMoreBtnClick(reset=false){
-        if(reset){
-            setDataIndex({end: 4, start: 0})
-        }else{
-            setDataIndex({start: dataIndex.end, end: dataIndex.end + 4})
-        }
+        setDataIndex({end:0, start:0});
+
+        setTimeout(() => {
+            if(reset){
+                setDataIndex({end: 4, start: 0})
+            }else{
+                setDataIndex({start: dataIndex.end, end: dataIndex.end + 4})
+            }
+        }, 100);
     }
 
     return(
@@ -60,8 +64,8 @@ export default function AccountTrendingSection(){
                     </div>
                 </div>
 
-                <div className="flex gap-2">
-                    <button className="w-full flex items-center justify-center px-8 py-2 rounded-xl bg-blue-50 dark:bg-slate-900 dark:border dark:border-gray-700 text-blue-500">
+                <div className="flex gap-2 flex-wrap min-[300px]:flex-nowrap">
+                    <button className="w-full min-[300px]:w-r1/2 mx-auto flex items-center justify-center px-8 py-2 rounded-xl bg-blue-50 dark:bg-slate-900 dark:border dark:border-gray-700 text-blue-500">
                         <div className="flex items-center gap-1">
                             <ArrowUpIcon className="size-6" />
                             <span className="font-medium">
@@ -70,7 +74,7 @@ export default function AccountTrendingSection(){
                         </div>
                     </button>
 
-                    <button className="w-full flex items-center justify-center px-8 py-2 rounded-xl bg-blue-50 dark:bg-slate-900 dark:border dark:border-gray-700 text-blue-500">
+                    <button className="w-full min-[300px]:w-r1/2 mx-auto flex items-center justify-center px-8 py-2 rounded-xl bg-blue-50 dark:bg-slate-900 dark:border dark:border-gray-700 text-blue-500">
                         <div className="flex items-center gap-1">
                             <ArrowUpIcon className="size-6 rotate-180" />
                             <span className="font-medium">

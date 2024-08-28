@@ -59,7 +59,7 @@ export default function DashboardLayout(
         <themeContext.Provider value={{theme, setTheme: updateThemeMode}}>
             <sidebarStateContext.Provider value={{sidebarState, setSidebarState: updateSidebarState}}>
                 <SideBar />
-                <main className="ms-0 lg:ms-64">
+                <main className="ms-0 lg:ms-64 mb-10">
                     <NavBar />
                     <div className="px-4 sm:px-6 mt-8">
                         { children }
