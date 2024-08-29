@@ -46,3 +46,7 @@ export type CoinListData =  {
     },
     price_change_percentage_7d_in_currency: number | null
 }[]
+
+export type MarketChartData = {
+    prices: [number, number][]
+}

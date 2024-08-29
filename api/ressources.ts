@@ -15,3 +15,9 @@ export const getCgCoinsListRoute = () : string => {
 export const getCgCoinsListByCateRoute = (cate:string) : string => {
     return `${geckoBaseRoute}coins/markets?vs_currency=usd&category=${cate}&per_page=250&sparkline=true&price_change_percentage=7d`
 }
+
+export const getCgCoinsMarketChartRoute = (
+    coinId: string
+) : string => {
+    return `${geckoBaseRoute}coins/${coinId}/market_chart?vs_currency=usd&days=365&precision=1`
+}

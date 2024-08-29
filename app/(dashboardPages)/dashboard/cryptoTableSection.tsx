@@ -20,6 +20,8 @@ export default function CryptosTableSection(){
     const [currentDatas, setCurrentDatas] = useState<CoinListData>([]);
     const [fetchingCoins, setFetchingCoins] = useState<boolean>(false);
     const categorieContainerRef = useRef<HTMLUListElement>(null);
+    const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
+    const [currentCoinId, setCurrentCoinId] = useState<string>("");
 
     useEffect(()=>{
         fetchCategories()
@@ -100,6 +102,19 @@ export default function CryptosTableSection(){
                 }
             })
         }
+    }
+
+    function toggleDetailModal(){
+        if(showDetailModal){
+            setShowDetailModal(false)
+        }else{
+            setShowDetailModal(true);
+        }
+    }
+
+    function onCoinsClick(coinId: string){
+        setCurrentCoinId(coinId);
+        toggleDetailModal();
     }
 
     return(
@@ -193,7 +208,8 @@ export default function CryptosTableSection(){
                             </td>
 
                             <td className="py-3">
-                                <button className="flex gap-2 items-center ">
+                                <button className="flex gap-2 items-center "
+                                onClick={()=>{onCoinsClick(coins.id)}}>
                                     <div>
                                         <img src={coins.image} alt={coins.name} 
                                         className="size-8 rounded-full "/>
@@ -209,9 +225,9 @@ export default function CryptosTableSection(){
                             </td>
 
                             <td className="py-3">
-                                <div className={`rounded-full font-medium px-2 py-1 inline-block
+                                <div className={`rounded-full font-medium px-2 py-1 inline-block font-medium
                                     ${coins.price_change_percentage_24h > 0 ?
-                                    "bg-green-100 text-green-600 dark:bg-green-900 dark:text-white" : " bg-red-100 text-red-600 dark:bg-red-900 dark:text-white"}`}>
+                                    "bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-500" : " bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-400"}`}>
                                     <span>
                                         {coins.price_change_percentage_24h > 0 && "+"}
                                         {coins.price_change_percentage_24h.toFixed(1)}%
@@ -221,7 +237,7 @@ export default function CryptosTableSection(){
 
                             <td className="py-3">
                                 {coins.total_volume.toLocaleString("en-US", {style: "currency", currency: "USD"})}
-                            </td>   
+                            </td>
 
                             <td className="py-3">
                                 {coins.market_cap.toLocaleString("en-US", {style: "currency", currency: "USD"})}
@@ -275,7 +291,10 @@ export default function CryptosTableSection(){
         datas={searchStr ? searchResutls : coinsList}
         setCurrentDatas={setCurrentDatas}/>
 
-        <CoinDetailModal />
+        <CoinDetailModal 
+        showDetailModal={showDetailModal}
+        closeModal={toggleDetailModal}
+        coinId={currentCoinId}/>
         </>
     )
 }

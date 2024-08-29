@@ -188,9 +188,10 @@ export default function SideBar(){
 
                             <Link href={sideBarItem.path}
                             className={`flex gap-3 items-center rounded-xl p-3 
-                            ${currentPathname === sideBarItem.path ? "bg-blue-500 text-white" : "hover:bg-blue-100 dark:hover:bg-blue-500"}`}>
+                            ${currentPathname === sideBarItem.path || (currentPathname === "/" && sideBarItem.name === "Dashboard")? "bg-blue-500 text-white" : "hover:bg-blue-100 dark:hover:bg-blue-500"}`}>
                                 {currentPathname === sideBarItem.path ||
-                                theme === themeMode.dark ?
+                                theme === themeMode.dark ||
+                                (currentPathname === "/" && sideBarItem.name === "Dashboard") ?
                                 <Image
                                 alt={sideBarItem.name}
                                 src={sideBarItem.whiteIcon}/> :
