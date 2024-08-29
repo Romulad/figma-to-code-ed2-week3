@@ -10,7 +10,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "dark": "rgba(23, 25, 35, 1)"
+        "dark": "rgba(23, 25, 35, 1)",
+        "red-dark-item": "rgba(203, 1, 1, 1)",
+        "red-dark-container": "rgba(203, 1, 1, 0.15)",
+        "green-dark-item": "rgba(1, 177, 48, 1)",
+        "green-dark-container": "rgba(1, 177, 48, 0.15)",
       },
       maxWidth: {
         "expand" : "1536px"

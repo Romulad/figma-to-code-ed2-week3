@@ -227,7 +227,7 @@ export default function CryptosTableSection(){
                             <td className="py-3">
                                 <div className={`rounded-full font-medium px-2 py-1 inline-block font-medium
                                     ${coins.price_change_percentage_24h > 0 ?
-                                    "bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-500" : " bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-400"}`}>
+                                    "bg-green-100 text-green-600 dark:bg-green-dark-container dark:text-green-dark-item" : " bg-red-100 text-red-600 dark:bg-red-dark-container dark:text-red-dark-item"}`}>
                                     <span>
                                         {coins.price_change_percentage_24h > 0 && "+"}
                                         {coins.price_change_percentage_24h.toFixed(1)}%

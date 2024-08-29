@@ -53,7 +53,7 @@ export default function AccountTrendingSection(){
                             $63,755,200
                         </span>
                         <div className="flex items-center text-sm gap-3">
-                            <span className="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-500 py-1 px-2 rounded-full font-medium ">
+                            <span className="bg-green-100 dark:bg-green-dark-container text-green-600 dark:text-green-dark-item py-1 px-2 rounded-full font-medium ">
                                 +2.3%
                             </span>
                             <span className="text-gray-600 dark:text-slate-300">
@@ -132,7 +132,7 @@ export default function AccountTrendingSection(){
 
                             <div className={`flex items-center gap-2 rounded-full font-medium px-2 py-1
                                 ${data.item.data.price_change_percentage_24h.usd > 0 ?
-                                " bg-green-100 text-green-600 dark:bg-green-900 dark:text-white" : " bg-red-100 text-red-600 dark:bg-red-900 dark:text-white"}`}>
+                                " bg-green-100 text-green-600 dark:bg-green-dark-container dark:text-green-dark-item" : " bg-red-100 text-red-600 dark:bg-red-dark-container dark:text-red-dark-item"}`}>
                                 <span>
                                     {data.item.data.price_change_percentage_24h.usd > 0 && "+"}
                                     {data.item.data.price_change_percentage_24h.usd.toFixed(1)}%
