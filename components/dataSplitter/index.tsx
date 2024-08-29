@@ -170,7 +170,7 @@ export default function DataSplitter(
 
     const dataInfo = (
         <p className="text-sm">
-            Showing {previousScreen*rowsPerScreen} to {currentScreen*rowsPerScreen -1} of {datas.length} results
+            Showing {previousScreen*rowsPerScreen} to {currentScreen*rowsPerScreen > datas.length ? datas.length : currentScreen*rowsPerScreen} of {datas.length} results
         </p>
     )
 

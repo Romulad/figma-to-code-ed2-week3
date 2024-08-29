@@ -6,13 +6,15 @@ const Chart = dynamic(() => import('react-apexcharts'), {ssr: false,})
 
 import { ChevronDownIcon, EllispsisIcon, SearchIcon } from "@/assets/iconComponents";
 import { CategoriesData, CoinListData } from "@/api/definitions";
-import { fetchCategories, fetchCoinsList } from "@/api/actions";
+import { fetchCategories, fetchCoinsList, fetchCoinsListByCate } from "@/api/actions";
 import { 
     DataSplitter
 } from "@/components";
+import CoinDetailModal from "./coinsDetailModal";
 
 export default function CryptosTableSection(){
     const [searchStr, setSearchStr] = useState<string>('');
+    const [searchResutls, setSearchResults] = useState<CoinListData>([]);
     const [categories, setCategories] = useState<CategoriesData>([]);
     const [coinsList, setCoinsList] = useState<CoinListData>([]);
     const [currentDatas, setCurrentDatas] = useState<CoinListData>([]);
@@ -59,6 +61,47 @@ export default function CryptosTableSection(){
         }
     }
 
+    function searchCoins(ev: any){
+        const value : string = ev.target.value.toLocaleLowerCase()
+        setSearchStr(value);
+
+        if(value.length > 0){
+            const results = coinsList.filter((coins)=>(
+                coins.name.toLocaleLowerCase().includes(value) ||
+                coins.id.toLocaleLowerCase().includes(value) ||
+                coins.symbol.toLocaleLowerCase().includes(value) ||
+                coins.current_price.toString().toLocaleLowerCase().includes(value) ||
+                coins.market_cap_rank.toString().toLocaleLowerCase().includes(value)
+            ))
+            setSearchResults(results)
+        }else{
+            setSearchResults([])
+        }
+    }
+
+    function onCategorieClick(cate: string){
+        setFetchingCoins(true);
+        setCoinsList([]);
+        if(cate){
+            fetchCoinsListByCate(cate)
+            .then((resp)=>{
+                setFetchingCoins(false);
+                if(resp){
+                    setCoinsList(resp)
+                }
+            })
+        }else{
+            // if exist, request won't be sent, cause cache in the ls
+            fetchCoinsList()
+            .then((resp)=>{
+                setFetchingCoins(false);
+                if(resp){
+                    setCoinsList(resp)
+                }
+            })
+        }
+    }
+
     return(
         <>
         <div className="mt-10 gap-2 flex justify-between items-center flex-wrap sm:flex-nowrap">
@@ -70,7 +113,7 @@ export default function CryptosTableSection(){
                 </div>}
                 <input type="search" name="crypto" id="crypto" 
                 className="bg-transparent border dark:border-gray-700 p-2 rounded-xl w-full "
-                onChange={(ev)=>{setSearchStr(ev.target.value.toLocaleLowerCase())}}/>
+                onChange={searchCoins}/>
             </div>
 
             <div className="w-full sm:w-64 relative">
@@ -82,14 +125,16 @@ export default function CryptosTableSection(){
                 <ul className="z-20 hidden shadow-xl mt-1 max-h-64 overflow-auto py-1 absolute top-full w-full bg-white dark:bg-slate-800 dark:text-slate-100 divide-y dark:divide-gray-700 rounded-xl"
                 ref={categorieContainerRef}>
                     <li>
-                        <button className="p-3 hover:bg-slate-200 dark:hover:bg-slate-600 w-full text-start duration-500">
+                        <button className="p-3 hover:bg-slate-200 dark:hover:bg-slate-600 w-full text-start duration-500"
+                        onClick={()=>{onCategorieClick("")}}>
                             All
                         </button>
                     </li>
                     {categories
                     ?.map((categorie)=>(
                         <li key={categorie.category_id}>
-                            <button className="p-3 hover:bg-slate-200 dark:hover:bg-slate-600 w-full text-start duration-500">
+                            <button className="p-3 hover:bg-slate-200 dark:hover:bg-slate-600 w-full text-start duration-500"
+                            onClick={()=>{onCategorieClick(categorie.category_id)}}>
                                 {categorie.name}
                             </button>
                         </li>
@@ -148,7 +193,7 @@ export default function CryptosTableSection(){
                             </td>
 
                             <td className="py-3">
-                                <div className="flex gap-2 items-center ">
+                                <button className="flex gap-2 items-center ">
                                     <div>
                                         <img src={coins.image} alt={coins.name} 
                                         className="size-8 rounded-full "/>
@@ -156,7 +201,7 @@ export default function CryptosTableSection(){
                                     <span>
                                         {coins.name}
                                     </span>
-                                </div>
+                                </button>
                             </td>
 
                             <td className="py-3">
@@ -190,6 +235,9 @@ export default function CryptosTableSection(){
                                         chart: {
                                             sparkline:{
                                                 enabled: true
+                                            },
+                                            animations: {
+                                                enabled: false
                                             }
                                         },
                                         tooltip: {
@@ -207,8 +255,10 @@ export default function CryptosTableSection(){
                                     series={[{
                                         data: coins.sparkline_in_7d.price, 
                                         name: `${coins.name}`,
-                                        //@ts-ignore
-                                        color: `${coins.sparkline_in_7d.price[0] > coins.sparkline_in_7d.price.at(-1) ? "#dc2626" : "#22c55e"}`
+                                        color: `${coins.price_change_percentage_7d_in_currency && 
+                                        coins.price_change_percentage_7d_in_currency > 0 ? "#22c55e" : 
+                                        coins.price_change_percentage_7d_in_currency && 
+                                        coins.price_change_percentage_7d_in_currency < 0 ? "#dc2626" : "#22c55e"}`
                                     }]}/>
                                 </div>
                             </td>                       
@@ -222,8 +272,10 @@ export default function CryptosTableSection(){
 
         <DataSplitter 
         rows={10}
-        datas={coinsList}
+        datas={searchStr ? searchResutls : coinsList}
         setCurrentDatas={setCurrentDatas}/>
+
+        <CoinDetailModal />
         </>
     )
 }
