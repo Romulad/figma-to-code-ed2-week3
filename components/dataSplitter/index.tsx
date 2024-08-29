@@ -166,27 +166,48 @@ export default function DataSplitter(
             e.target.value = value;
             return
         };
-    }    
+    }
+
+    const dataInfo = (
+        <p className="text-sm">
+            Showing {previousScreen*rowsPerScreen} to {currentScreen*rowsPerScreen -1} of {datas.length} results
+        </p>
+    )
+
+    const inputRowsPerScreen = (
+        <div className="flex justify-center items-center gap-x-2">
+            <span className="text-gray-600 dark:text-white text-sm">Rows: </span>
+            <input type="text" name="per-screen" id="per-screen" 
+            className="border-2 dark:bg-transparent dark:border-gray-700 py-2 w-16 rounded-xl text-center"
+            onChange={onrowsChange}
+            defaultValue={rowsPerScreen}
+            onBlur={onrowsBlur}/>
+        </div>
+    )
 
     return (
         datas?.length > 0 &&  
         <>   
-        { 
-            totalSrceen > 0 &&
-            <div className="mt-10 flex items-center justify-around">
+        <div className="mt-10 lg:gap-14 xl:gap-24 flex items-center justify-center font-medium">
+
+            <div className="hidden lg:block">
+                {dataInfo}
+            </div>
+
+            {totalSrceen > 0 && 
+            <div className="flex items-center gap-0 min-[300px]:gap-3 min-[340px]:gap-5 max-[340px]:text-xs">
                 <button className="disabled:text-gray-600" onClick={goToPreviousPage}
                 disabled={currentScreen === 1}>
                     <ChevronDownIcon className="rotate-90 size-4"/>
                 </button>
 
-                <div className="flex gap-x-1 *:rounded-lg *:px-3 *:py-2 
-                *:shadow-md">
+                <div className="flex gap-x-1 items-center *:rounded-lg *:px-4 *:py-2 font-medium">
                     {
                         totalSrceen <= 4 ?
                             totalSrceenArray.map((value)=>(
                             <button className={
                             `${value === currentScreen ? "bg-blue-500 text-white" : 
-                            "text-blue-500"}`}
+                            "text-blue-500 dark:border-2 dark:border-gray-700"}`}
                             onClick={() => {goToXPage(value)}}
                             key={value}>
                                 {value}
@@ -200,7 +221,7 @@ export default function DataSplitter(
                                 className={
                                     `${totalSrceenArray.at(0) === currentScreen ? 
                                     "bg-blue-500 text-white" : 
-                                   "text-blue-500"}`
+                                "text-blue-500 dark:border-2 dark:border-gray-700"}`
                                 }
                                 //@ts-ignore
                                 onClick={() => {goToXPage(totalSrceenArray.at(0))}}>
@@ -210,7 +231,7 @@ export default function DataSplitter(
                             {
                                 //@ts-ignore
                                 currentScreen === totalSrceenArray.at(-2) - 1 &&
-                                <span>...</span>
+                                <span className="text-blue-500 dark:border-2 dark:border-gray-700">...</span>
                             }
                             {
                                 currentScreen === totalSrceenArray.at(0) ||
@@ -221,7 +242,7 @@ export default function DataSplitter(
                                 className={
                                     `${totalSrceenArray.at(1) === currentScreen ? 
                                     "bg-blue-500 text-white" : 
-                                    "text-blue-500"}`
+                                    "text-blue-500 dark:border-2 dark:border-gray-700"}`
                                 }
                                 //@ts-ignore
                                 onClick={() => {goToXPage(totalSrceenArray.at(1))}}>
@@ -235,7 +256,7 @@ export default function DataSplitter(
                             {
                                 //@ts-ignore
                                 currentScreen !== totalSrceenArray.at(-2) - 1 &&
-                                <span>...</span>
+                                <span className="text-blue-500 dark:border-2 dark:border-gray-700">...</span>
                             }
                             {
                                 totalSrceenArray.slice(totalSrceen - 2).map((value)=>(
@@ -243,7 +264,7 @@ export default function DataSplitter(
                                     className={
                                         `${value === currentScreen ? 
                                         "bg-blue-500 text-white" : 
-                                        "text-blue-500"}`
+                                        "text-blue-500 dark:border-2 dark:border-gray-700"}`
                                     }
                                     onClick={() => {goToXPage(value)}} key={value}>
                                         {value}
@@ -258,16 +279,16 @@ export default function DataSplitter(
                 disabled={currentScreen === totalSrceen}>
                     <ChevronDownIcon className="-rotate-90 size-4"/>
                 </button>
-            </div>
-        }
+            </div>}
 
-        <div className="mt-6 flex justify-center items-center gap-x-2">
-            <input type="text" name="per-screen" id="per-screen" 
-            placeholder="Rows"
-            className="border-0 w-16 rounded-lg text-center bg-slate-200 sm:bg-white"
-            onChange={onrowsChange}
-            defaultValue={rowsPerScreen}
-            onBlur={onrowsBlur}/>
+            <div className="hidden lg:block">
+                {inputRowsPerScreen}
+            </div>
+        </div>
+
+        <div className="mt-5 flex flex-wrap lg:hidden justify-center items-center gap-6 font-medium">
+            {dataInfo}
+            {inputRowsPerScreen}
         </div>
         </> 
 

@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 const Chart = dynamic(() => import('react-apexcharts'), {ssr: false,})
 
-import { ChevronDownIcon, SearchIcon } from "@/assets/iconComponents";
+import { ChevronDownIcon, EllispsisIcon, SearchIcon } from "@/assets/iconComponents";
 import { CategoriesData, CoinListData } from "@/api/definitions";
 import { fetchCategories, fetchCoinsList } from "@/api/actions";
 import { 
@@ -103,9 +103,9 @@ export default function CryptosTableSection(){
                 <h4 className="font-medium text-lg">
                     Market
                 </h4>
-                <div className="py-2 px-3 rounded-xl border dark:border-gray-700">
-                    <ChevronDownIcon className="size-4"/>
-                </div>
+                <button className="py-3 px-3 rounded-xl border dark:border-gray-700">
+                    <EllispsisIcon className="size-4"/>
+                </button>
             </div>
 
             {fetchingCoins ?
@@ -207,7 +207,8 @@ export default function CryptosTableSection(){
                                     series={[{
                                         data: coins.sparkline_in_7d.price, 
                                         name: `${coins.name}`,
-                                        color: `${coins.price_change_percentage_24h > 0 ? "#22c55e" : "#dc2626"}`
+                                        //@ts-ignore
+                                        color: `${coins.sparkline_in_7d.price[0] > coins.sparkline_in_7d.price.at(-1) ? "#dc2626" : "#22c55e"}`
                                     }]}/>
                                 </div>
                             </td>                       
