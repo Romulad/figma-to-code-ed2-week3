@@ -4,3 +4,4 @@ export const trendingKey = "trending";
 export const categoriesKey = "categories";
 export const coinsListKey = "coins";
 export const marketChartKey = "market_chart";
+export const coindDatasKey = "coins_data";

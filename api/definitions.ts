@@ -50,3 +50,31 @@ export type CoinListData =  {
 export type MarketChartData = {
     prices: [number, number][]
 }
+
+export type CoinsData = {
+    id: string,
+    symbol: string,
+    name: string,
+    description: {
+        en?: string
+    },
+    image: {
+        thumb: string
+    },
+    market_cap_rank: number,
+    market_data: {
+        current_price: {
+            usd: number
+        },
+        market_cap: {
+            usd: number
+        },
+        high_24h: {
+            usd: number
+        },
+        low_24h: {
+            usd: number
+        },
+        circulating_supply: number,
+    }
+}

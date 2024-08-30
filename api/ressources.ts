@@ -21,3 +21,7 @@ export const getCgCoinsMarketChartRoute = (
 ) : string => {
     return `${geckoBaseRoute}coins/${coinId}/market_chart?vs_currency=usd&days=365&precision=1`
 }
+
+export const getCgCoinsDataRoute = (coinId: string) : string => {
+    return `${geckoBaseRoute}coins/${coinId}?localization=false&tickers=false&community_data=false&developer_data=false`
+}

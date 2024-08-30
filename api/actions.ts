@@ -1,7 +1,7 @@
-import { categoriesKey, coinsListKey, marketChartKey, trendingKey } from "./constants";
-import { CategoriesData, CoinListData, MarketChartData, TrendingData } from "./definitions";
+import { categoriesKey, coindDatasKey, coinsListKey, marketChartKey, trendingKey } from "./constants";
+import { CategoriesData, CoinListData, CoinsData, MarketChartData, TrendingData } from "./definitions";
 import makeReq from "./makeReq"
-import { getCgCategoriesRoute, getCgCoinsListByCateRoute, getCgCoinsListRoute, getCgCoinsMarketChartRoute, getCgTrendingRoute } from "./ressources"
+import { getCgCategoriesRoute, getCgCoinsDataRoute, getCgCoinsListByCateRoute, getCgCoinsListRoute, getCgCoinsMarketChartRoute, getCgTrendingRoute } from "./ressources"
 
 function lsSetter(key:string, data:any){
     try{
@@ -102,6 +102,37 @@ export const fetchCoinsMarketChart = async (
             const newMarketChart : Record<string, typeof data> = {};
             newMarketChart[coinId] = data;
             lsSetter(marketChartKey, newMarketChart);
+        }
+        return data
+    }
+
+    return null
+}
+
+export const fetchCoinsData = async (coinId: string) : Promise<CoinsData | null> => {
+    const coinsDatas = JSON.parse(
+        localStorage.getItem(coindDatasKey) || '{}'
+    )
+    const coinsDatasExists = Object.keys(coinsDatas).length >  0
+
+    if(coinsDatasExists){
+        const coinsData = coinsDatas[coinId];
+        if(coinsData){
+            return coinsData
+        }
+    }
+
+    const url = getCgCoinsDataRoute(coinId);
+    const data = await makeReq("GET", url);
+
+    if(data){
+        if(coinsDatasExists){
+            coinsDatas[coinId] = data;
+            lsSetter(coindDatasKey, coinsDatas);
+        }else{
+            const newCoinsDatas : Record<string, typeof data> = {};
+            newCoinsDatas[coinId] = data;
+            lsSetter(coindDatasKey, newCoinsDatas);
         }
         return data
     }
