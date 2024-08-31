@@ -78,3 +78,23 @@ export type CoinsData = {
         circulating_supply: number,
     }
 }
+
+export type AidropsData = {
+    data: {
+        id: string,
+        project_name: string,
+        description: string,
+        status: "UPCOMING" | "ONGOING",
+        coin: {
+            id: number,
+            name: string,
+            slug: string,
+            symbol: string
+        },
+        start_date: string,
+        end_date: string,
+        total_prize: number,
+        winner_count: number,
+        link: string
+    }[]
+}

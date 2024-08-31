@@ -22,6 +22,7 @@ export default function CryptosTableSection(){
     const categorieContainerRef = useRef<HTMLUListElement>(null);
     const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [currentCoinId, setCurrentCoinId] = useState<string>("");
+    const [currentCategorie, setCurrentCategorie] = useState<string>("All");
 
     useEffect(()=>{
         fetchCategories()
@@ -81,10 +82,11 @@ export default function CryptosTableSection(){
         }
     }
 
-    function onCategorieClick(cate: string){
+    function onCategorieClick(cate: string, name?:string){
         setFetchingCoins(true);
         setCoinsList([]);
         if(cate){
+            name && setCurrentCategorie(name);
             fetchCoinsListByCate(cate)
             .then((resp)=>{
                 setFetchingCoins(false);
@@ -93,6 +95,7 @@ export default function CryptosTableSection(){
                 }
             })
         }else{
+            setCurrentCategorie('All')
             // if exist, request won't be sent, cause cache in the ls
             fetchCoinsList()
             .then((resp)=>{
@@ -134,13 +137,14 @@ export default function CryptosTableSection(){
             <div className="w-full sm:w-64 relative">
                 <button className="rounded-xl w-full py-2 px-3 flex items-center justify-between border dark:border-gray-700 focus:border-2 text-sm font-medium text-gray-600 dark:text-white"
                 onClick={toggleCategorieContainer} id="categorie-btn">
-                    <span>Categories</span>
+                    <span>{currentCategorie || 'Categories'}</span>
                     <ChevronDownIcon className="size-4"/>
                 </button>
                 <ul className="z-20 hidden shadow-xl mt-1 max-h-64 overflow-auto py-1 absolute top-full w-full bg-white dark:bg-slate-800 dark:text-slate-100 divide-y dark:divide-gray-700 rounded-xl"
                 ref={categorieContainerRef}>
                     <li>
-                        <button className="p-3 hover:bg-slate-200 dark:hover:bg-slate-600 w-full text-start duration-500"
+                        <button className={`p-3 hover:bg-slate-200 dark:hover:bg-slate-600 w-full text-start duration-500
+                        ${currentCategorie === "All" ? "bg-slate-200 dark:bg-slate-600" : "" }`}
                         onClick={()=>{onCategorieClick("")}}>
                             All
                         </button>
@@ -148,8 +152,9 @@ export default function CryptosTableSection(){
                     {categories
                     ?.map((categorie)=>(
                         <li key={categorie.category_id}>
-                            <button className="p-3 hover:bg-slate-200 dark:hover:bg-slate-600 w-full text-start duration-500"
-                            onClick={()=>{onCategorieClick(categorie.category_id)}}>
+                            <button className={`p-3 hover:bg-slate-200 dark:hover:bg-slate-600 w-full text-start duration-500
+                            ${currentCategorie === categorie.name ? "bg-slate-200 dark:bg-slate-600" : "" }`}
+                            onClick={()=>{onCategorieClick(categorie.category_id, categorie.name)}}>
                                 {categorie.name}
                             </button>
                         </li>

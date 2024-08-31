@@ -25,3 +25,11 @@ export const getCgCoinsMarketChartRoute = (
 export const getCgCoinsDataRoute = (coinId: string) : string => {
     return `${geckoBaseRoute}coins/${coinId}?localization=false&tickers=false&community_data=false&developer_data=false`
 }
+
+export const getCmcOngoingAidropsDataRoute = () : string => {
+    return `https://pro-api.coinmarketcap.com/v1/cryptocurrency/airdrops?limit=300&status="ONGOING"`
+}
+
+export const getCmcUpcomingAidropsDataRoute = () : string => {
+    return `https://pro-api.coinmarketcap.com/v1/cryptocurrency/airdrops?limit=300&status="UPCOMING"`
+}

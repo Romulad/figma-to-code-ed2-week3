@@ -14,7 +14,6 @@ export default function DashboardLayout(
     const [theme, setTheme] = useState<themeModeOptions>(themeMode.light);
 
     useEffect(()=>{
-        const documtElement = document.querySelector("html");
         const currentTheme = localStorage.getItem(themeModeKey);
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;    
@@ -25,16 +24,12 @@ export default function DashboardLayout(
         ){
             /* This preference take precendence over all other preferences */
             setTheme(currentTheme);
-            currentTheme === themeMode.dark && documtElement?.classList.add(currentTheme);
         }else if(prefersDark){
             setTheme(themeMode.dark);
-            documtElement?.classList.add('dark');
         }else if(prefersLight){
             setTheme(themeMode.light);
-            documtElement?.classList.remove('dark');
         }else{
             setTheme(themeMode.light);
-            documtElement?.classList.remove('dark');
         }
     }, [])
 

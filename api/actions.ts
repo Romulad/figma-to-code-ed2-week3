@@ -1,5 +1,5 @@
-import { categoriesKey, coindDatasKey, coinsListKey, marketChartKey, trendingKey } from "./constants";
-import { CategoriesData, CoinListData, CoinsData, MarketChartData, TrendingData } from "./definitions";
+import { aidropsDataKey, categoriesKey, coindDatasKey, coinsListKey, marketChartKey, trendingKey } from "./constants";
+import { AidropsData, CategoriesData, CoinListData, CoinsData, MarketChartData, TrendingData } from "./definitions";
 import makeReq from "./makeReq"
 
 function lsSetter(key:string, data:any){
@@ -129,5 +129,20 @@ export const fetchCoinsData = async (coinId: string) : Promise<CoinsData | null>
     }
 
     return null
+}
+
+export const fetchAidrops = async () : Promise<AidropsData | null> => {
+    const aidropsData = localStorage.getItem(aidropsDataKey);
+    if(aidropsData){
+        return JSON.parse(aidropsData)
+    }
+
+    const data = await makeReq('GET', "/cmc/aidrops");
+    if(data){
+        lsSetter(aidropsDataKey, data)
+        return data
+    }else{
+        return null
+    }
 }
 
