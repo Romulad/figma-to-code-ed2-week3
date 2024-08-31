@@ -7,10 +7,6 @@ export default async function makeReq(
         const resp = await fetch(url,
             {
                 method,
-                headers: {
-                    ...headers,
-                    'x-cg-demo-api-key': `${process.env.NEXT_PUBLIC_GECKO_API_KEY}`
-                },
                 // body: JSON.stringify(data)
             }
         )
@@ -23,5 +19,27 @@ export default async function makeReq(
         throw new Error(`Http response with ${resp.status} status code`)
     }catch(e){
         throw new Error(`Error: ${e}`)
+    }
+}
+
+export async function makeServerReq(url: string, method:string, useGecko=true) {
+    const authHeader: Record<string, string> = {};
+    if(useGecko){
+        authHeader["x-cg-demo-api-key"] = `${process.env.GECKO_API_KEY}`
+    }else{
+        authHeader["X-CMC_PRO_API_KEY"] = `${process.env.CMC_API_KEY}`
+    }
+    
+    try{
+        const resp = await fetch(url, {
+            method,
+            headers:{
+                ...authHeader
+            }
+        });
+        const data = await resp.json();
+        return Response.json(data, {status: resp.status})
+    }catch(e){
+        return Response.json({message: "Server error"}, {status: 500})
     }
 }

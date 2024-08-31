@@ -107,14 +107,17 @@ export default function CoinDetailModal(
                         },
                         chart:{
                             toolbar: {
+                                show: false,
                                 tools: {
+                                    
                                     zoom: false,
                                     selection: false,
                                     reset: false,
                                     zoomin: false,
                                     zoomout: false,
                                     pan: false
-                                }
+                                },
+
                             }
                         },
                         xaxis: {

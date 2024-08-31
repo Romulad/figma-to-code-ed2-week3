@@ -1,7 +1,6 @@
 import { categoriesKey, coindDatasKey, coinsListKey, marketChartKey, trendingKey } from "./constants";
 import { CategoriesData, CoinListData, CoinsData, MarketChartData, TrendingData } from "./definitions";
 import makeReq from "./makeReq"
-import { getCgCategoriesRoute, getCgCoinsDataRoute, getCgCoinsListByCateRoute, getCgCoinsListRoute, getCgCoinsMarketChartRoute, getCgTrendingRoute } from "./ressources"
 
 function lsSetter(key:string, data:any){
     try{
@@ -17,8 +16,7 @@ export const fetchTrendingData = async () : Promise<TrendingData | null> => {
         return JSON.parse(trendingData)
     }
 
-    const url = getCgTrendingRoute();
-    const data = await makeReq('GET', url);
+    const data = await makeReq('GET', "/gecko/trending");
     if(data){
         lsSetter(trendingKey, data)
         return data
@@ -33,8 +31,7 @@ export const fetchCategories = async () : Promise<CategoriesData | null> => {
         return JSON.parse(categoriesData)
     }
 
-    const url = getCgCategoriesRoute();
-    const data = await makeReq('GET', url);
+    const data = await makeReq('GET', "/gecko/categories");
     if(data){
         lsSetter(categoriesKey, data);
         return data
@@ -49,8 +46,7 @@ export const fetchCoinsList = async () : Promise<CoinListData | null> => {
         return JSON.parse(coinListData)
     }
 
-    const url = getCgCoinsListRoute();
-    const data = await makeReq('GET', url);
+    const data = await makeReq('GET', "/gecko/list");
     if(data){
         lsSetter(coinsListKey, data);
         return data
@@ -65,8 +61,7 @@ export const fetchCoinsListByCate = async (cate:string) : Promise<CoinListData |
         return JSON.parse(coinListData)
     }
 
-    const url = getCgCoinsListByCateRoute(cate);
-    const data = await makeReq('GET', url);
+    const data = await makeReq('GET', `/gecko/${cate}/coins`);
     if(data){
         lsSetter(cate, data);
         return data
@@ -91,9 +86,7 @@ export const fetchCoinsMarketChart = async (
         }
     }
 
-    const url = getCgCoinsMarketChartRoute(coinId);
-    const data = await makeReq("GET", url);
-
+    const data = await makeReq("GET", `/gecko/chart/${coinId}`);
     if(data){
         if(marketChartDataExists){
             marketChartDatas[coinId] = data;
@@ -122,9 +115,7 @@ export const fetchCoinsData = async (coinId: string) : Promise<CoinsData | null>
         }
     }
 
-    const url = getCgCoinsDataRoute(coinId);
-    const data = await makeReq("GET", url);
-
+    const data = await makeReq("GET", `/gecko/coins/${coinId}`);
     if(data){
         if(coinsDatasExists){
             coinsDatas[coinId] = data;

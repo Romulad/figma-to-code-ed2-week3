@@ -72,8 +72,8 @@ const sideBarData : SideBarData = [
         whiteIcon: sideBarIcons.reports.whiteSrc,
         isDropdown: true,
         dropdownItems: [
-            { name: "Report type 1", path: "" },
-            { name: "Report type 2", path: "" }
+            { name: "Report type 1", path: reportsPageUrl },
+            { name: "Report type 2", path: reportsPageUrl }
         ]
     },
     {
