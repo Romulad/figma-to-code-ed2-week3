@@ -27,6 +27,7 @@ import {
 import { sidebarStateContext, themeContext } from "@/lib/context";
 import { themeMode } from "@/lib/constants";
 import { Logo } from "@/components";
+import { useBodyModalEffect } from "@/hooks";
 
 
 type SideBarItem = {
@@ -146,8 +147,9 @@ export default function SideBar(){
     const [currentPathname, setCurrentPathname] = useState<string>("")
     const pathname = usePathname();
     const { sidebarState, setSidebarState } = useContext(sidebarStateContext);
-    const { theme } = useContext(themeContext)
+    const { theme } = useContext(themeContext);
 
+    useBodyModalEffect([sidebarState], sidebarState);
     useEffect(()=>{
         setCurrentPathname(pathname)
     }, [pathname])
@@ -171,7 +173,7 @@ export default function SideBar(){
                     </h2>
                     <button className="lg:hidden bg-slate-100 dark:bg-slate-900 p-1 rounded-lg focus:border-2 border-gray-700"
                     onClick={setSidebarState}>
-                        <XIcon />
+                        <XIcon className="size-5"/>
                     </button>
                 </div>
 

@@ -8,6 +8,7 @@ import { FavoriteIcon, XIcon } from "@/assets/iconComponents"
 import { Overlay, SimpleSkeleton } from "@/components"
 import { themeContext } from "@/lib/context"
 import { themeMode } from "@/lib/constants"
+import { useBodyModalEffect } from "@/hooks"
 
 const Chart = dynamic(() => import('react-apexcharts'), {ssr: false,});
 
@@ -28,6 +29,7 @@ export default function CoinDetailModal(
     const [coinMarketChartData, setCoinMarketChartData] = useState<MarketChartData>({prices: []});
     const [coinsData, setCoinsData] = useState<CoinsData | Record<string, any>>({});
 
+    useBodyModalEffect([showDetailModal], showDetailModal);
     useEffect(()=>{
         const bodyEl = document.querySelector('body');
         if(showDetailModal){
@@ -50,12 +52,6 @@ export default function CoinDetailModal(
             })
         }
 
-        if(showDetailModal){
-            bodyEl?.classList.add('overflow-hidden')
-        }else{
-            bodyEl?.classList.remove('overflow-hidden')
-        }
-
     }, [showDetailModal])
 
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -66,7 +62,7 @@ export default function CoinDetailModal(
         onOverlayClick={closeModal}
         showOverlay={showDetailModal}/>
         <div className={`p-5 z-[9970] shadow-xl fixed top-0 h-full rounded-tl-xl rounded-bl-xl bg-white dark:bg-dark w-full min-[550px]:w-[500px] 
-        ${showDetailModal ? "right-0" : "-right-full"} duration-500 linear overflow-auto`}>
+        ${showDetailModal ? "right-0" : "-right-full"} duration-300 linear overflow-auto`}>
             <div className="flex justify-between items-center mb-8">
                 {fetchingCoinsData ?
                 <p className="grow p-2 rounded-full bg-slate-200 animate-pulse me-3"></p> :
@@ -117,7 +113,9 @@ export default function CoinDetailModal(
                                     zoomout: false,
                                     pan: false
                                 },
-
+                            },
+                            animations:{
+                                enabled: true
                             }
                         },
                         xaxis: {

@@ -11,11 +11,14 @@ import {
 } from "@/assets/iconComponents";
 import { sidebarStateContext, themeContext } from "@/lib/context";
 import { themeMode } from "@/lib/constants";
+import { usePathname } from "next/navigation";
 
 export default function NavBar(){
     const { theme, setTheme } = useContext(themeContext);
     const [currencyIsOpen, setCurrencyIsOpen] = useState(false);
     const { setSidebarState } = useContext(sidebarStateContext);
+
+    const pathName = usePathname()
 
     return(
         <nav className="sticky bg-white dark:bg-dark z-20 top-0 flex justify-between items-center border-b dark:border-gray-700 py-3 px-4 sm:px-6  
@@ -27,11 +30,11 @@ export default function NavBar(){
                         <HamburguerIcon />
                     </button>
 
-                    <div className="flex-col gap-1 hidden min-[320px]:flex">
-                        <h1 className="font-medium">
-                            Dashboard
+                    <div className="flex-col gap-1 flex">
+                        <h1 className="font-medium capitalize">
+                            {pathName.split('/').at(-1) || "Dashboard"} {/*  of course we could use another logique */}
                         </h1>
-                        <p className="text-sm text-gray-600 dark:text-slate-300">
+                        <p className="text-sm text-gray-600 dark:text-slate-300 hidden min-[320px]:block">
                             Welcome back, John Doe !
                         </p> 
                     </div>
