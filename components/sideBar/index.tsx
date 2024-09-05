@@ -148,6 +148,7 @@ export default function SideBar(){
     const pathname = usePathname();
     const { sidebarState, setSidebarState } = useContext(sidebarStateContext);
     const { theme } = useContext(themeContext);
+    const [IsOpen, setIsOpen] = useState<boolean>(false);
 
     useBodyModalEffect([sidebarState], sidebarState);
     useEffect(()=>{
@@ -209,9 +210,10 @@ export default function SideBar(){
                         ))}
                     </ul>
                     
-                    <div className="p-2">
+                    <div className="p-2 relative">
                         <button className="text-start flex gap-2 items-center 
-                        hover:bg-blue-100 dark:hover:bg-slate-800 rounded-lg p-2">
+                        hover:bg-blue-100 dark:hover:bg-slate-800 rounded-lg p-2"
+                        onClick={()=>{setIsOpen(!IsOpen)}}>
                             <Image 
                             src={profileImg}
                             alt="John Doe"/>
@@ -230,6 +232,20 @@ export default function SideBar(){
                                 <ChevronDownIcon />
                             </div>
                         </button>
+                        <ul className={`w-[90%] absolute ${IsOpen ? "flex" : "hidden"} bottom-full flex-col gap-1 p-1 rounded-xl shadow-lg bg-white dark:bg-slate-700`}>
+                            <li>
+                                <a href="/login" 
+                                className="hover:bg-blue-100 dark:hover:bg-slate-600 p-3 rounded-xl w-full block duration-300">
+                                    Login
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/register"
+                                className="hover:bg-blue-100 dark:hover:bg-slate-600 p-3 rounded-xl w-full block duration-300">
+                                    Create account
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
