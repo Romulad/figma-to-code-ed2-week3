@@ -96,7 +96,7 @@ export default function CryptosTableSection(){
             })
         }else{
             setCurrentCategorie('All')
-            // if exist, request won't be sent, cause cache in the ls
+            // if exist, request won't be sent, cause cache in the ls (Local storage)
             fetchCoinsList()
             .then((resp)=>{
                 setFetchingCoins(false);
@@ -175,6 +175,8 @@ export default function CryptosTableSection(){
 
             {fetchingCoins ?
             <div className="bg-slate-200 animate-pulse h-64"></div> :
+            coinsList && 
+            coinsList.length > 0 &&
             <div className="w-full overflow-auto no-scrollbar">
                 <table className="table min-w-full w-[950px] ">
                     <thead className="bg-gray-100 dark:bg-slate-800 text-sm border-b dark:border-gray-700">
@@ -275,12 +277,12 @@ export default function CryptosTableSection(){
                                     width={100}
                                     height={50}
                                     series={[{
-                                        data: coins.sparkline_in_7d.price, 
+                                        data: coins?.sparkline_in_7d?.price, 
                                         name: `${coins.name}`,
-                                        color: `${coins.price_change_percentage_7d_in_currency && 
-                                        coins.price_change_percentage_7d_in_currency > 0 ? "#22c55e" : 
-                                        coins.price_change_percentage_7d_in_currency && 
-                                        coins.price_change_percentage_7d_in_currency < 0 ? "#dc2626" : "#22c55e"}`
+                                        color: `${coins?.price_change_percentage_7d_in_currency && 
+                                        coins?.price_change_percentage_7d_in_currency > 0 ? "#22c55e" : 
+                                        coins?.price_change_percentage_7d_in_currency && 
+                                        coins?.price_change_percentage_7d_in_currency < 0 ? "#dc2626" : "#22c55e"}`
                                     }]}/>
                                 </div>
                             </td>                       
