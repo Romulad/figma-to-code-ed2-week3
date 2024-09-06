@@ -9,7 +9,10 @@ export default function DashboardLayout(
     return(
         <html lang="en">
             <body>
-                <BaseDashboard children={children} />
+                <BaseDashboard>
+                    { children }
+                </BaseDashboard>
+                
                 <Script id="switch-theme" strategy="beforeInteractive">
                     { `
                     const documtElement = document.querySelector("html");

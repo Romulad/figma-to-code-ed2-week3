@@ -6,6 +6,7 @@ import { SideBar, NavBar } from "@/components";
 import { sidebarStateContext, themeContext } from "@/lib/context";
 import { themeMode, themeModeKey } from "@/lib/constants";
 import { themeModeOptions } from "@/lib/definitions";
+import Link from "next/link";
 
 export default function BaseDashboard(
     { children } : { children: React.ReactNode }
@@ -58,6 +59,12 @@ export default function BaseDashboard(
                     <NavBar />
                     <div className="px-4 sm:px-6 mt-8 max-w-expand mx-auto">
                         { children }
+                    </div>
+                    <div className="text-center text-md mt-10">
+                        <Link href={"https://www.linkedin.com/in/romuald-oluwatobi"}
+                        target="_blank">
+                            Tokena 2024 by <span className="underline"> Oluwatobi</span>
+                        </Link>
                     </div>
                 </main>
             </sidebarStateContext.Provider>
