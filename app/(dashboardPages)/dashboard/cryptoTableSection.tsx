@@ -226,26 +226,27 @@ export default function CryptosTableSection(){
                             </td>
 
                             <td className="py-3">
-                                {coins.current_price.toLocaleString("en-US", {style: "currency", currency: "USD"})}
+                                {coins.current_price?.toLocaleString("en-US", {style: "currency", currency: "USD"})}
                             </td>
 
                             <td className="py-3">
+                                {coins.price_change_percentage_24h && 
                                 <div className={`rounded-full font-medium px-2 py-1 inline-block font-medium
                                     ${coins.price_change_percentage_24h > 0 ?
                                     "bg-green-100 text-green-600 dark:bg-green-dark-container dark:text-green-dark-item" : " bg-red-100 text-red-600 dark:bg-red-dark-container dark:text-red-dark-item"}`}>
                                     <span>
                                         {coins.price_change_percentage_24h > 0 && "+"}
-                                        {coins.price_change_percentage_24h.toFixed(1)}%
+                                        {coins.price_change_percentage_24h?.toFixed(1)}%
                                     </span>
-                                </div>
+                                </div>}
                             </td> 
 
                             <td className="py-3">
-                                {coins.total_volume.toLocaleString("en-US", {style: "currency", currency: "USD"})}
+                                {coins?.total_volume?.toLocaleString("en-US", {style: "currency", currency: "USD"})}
                             </td>
 
                             <td className="py-3">
-                                {coins.market_cap.toLocaleString("en-US", {style: "currency", currency: "USD"})}
+                                {coins.market_cap?.toLocaleString("en-US", {style: "currency", currency: "USD"})}
                             </td>  
 
                             <td className="py-3 pe-4">
