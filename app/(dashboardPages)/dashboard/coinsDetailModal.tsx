@@ -31,7 +31,6 @@ export default function CoinDetailModal(
 
     useBodyModalEffect([showDetailModal], showDetailModal);
     useEffect(()=>{
-        const bodyEl = document.querySelector('body');
         if(showDetailModal){
             setFetchingHistoryData(true);
             setFetchingCoinsData(true);
@@ -52,7 +51,7 @@ export default function CoinDetailModal(
             })
         }
 
-    }, [showDetailModal])
+    }, [showDetailModal, coinId])
 
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
