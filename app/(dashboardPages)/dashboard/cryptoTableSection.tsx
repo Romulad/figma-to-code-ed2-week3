@@ -70,11 +70,11 @@ export default function CryptosTableSection(){
 
         if(value.length > 0){
             const results = coinsList.filter((coins)=>(
-                coins.name.toLocaleLowerCase().includes(value) ||
-                coins.id.toLocaleLowerCase().includes(value) ||
-                coins.symbol.toLocaleLowerCase().includes(value) ||
-                coins.current_price.toString().toLocaleLowerCase().includes(value) ||
-                coins.market_cap_rank.toString().toLocaleLowerCase().includes(value)
+                coins?.name?.toLocaleLowerCase().includes(value) ||
+                coins?.id?.toLocaleLowerCase().includes(value) ||
+                coins?.symbol?.toLocaleLowerCase().includes(value) ||
+                coins?.current_price?.toString().toLocaleLowerCase().includes(value) ||
+                coins?.market_cap_rank?.toString().toLocaleLowerCase().includes(value)
             ))
             setSearchResults(results)
         }else{
@@ -211,28 +211,33 @@ export default function CryptosTableSection(){
                         <tr key={coins.id}
                         className="border-b dark:border-gray-700 last-of-type:border-0">
                             <td className="ps-4 py-3">
-                                {coins.market_cap_rank}
+                                {coins.market_cap_rank ? coins.market_cap_rank : "-"}
                             </td>
 
                             <td className="py-3">
                                 <button className="flex gap-2 items-center "
                                 onClick={()=>{onCoinsClick(coins.id)}}>
+                                    {(coins.image &&
+                                    coins.name) ? 
                                     <div>
                                         <img src={coins.image} alt={coins.name} 
                                         className="size-8 rounded-full "/>
-                                    </div>
+                                    </div> : "-"}
+                                    {coins.name && 
                                     <span>
                                         {coins.name}
-                                    </span>
+                                    </span>}
                                 </button>
                             </td>
 
                             <td className="py-3">
-                                {coins.current_price?.toLocaleString("en-US", {style: "currency", currency: "USD"})}
+                                {coins.current_price ?
+                                coins.current_price?.toLocaleString("en-US", {style: "currency", currency: "USD"}) : 
+                                "-"}
                             </td>
 
                             <td className="py-3">
-                                {coins.price_change_percentage_24h && 
+                                {coins.price_change_percentage_24h ? 
                                 <div className={`rounded-full font-medium px-2 py-1 inline-block font-medium
                                     ${coins.price_change_percentage_24h > 0 ?
                                     "bg-green-100 text-green-600 dark:bg-green-dark-container dark:text-green-dark-item" : " bg-red-100 text-red-600 dark:bg-red-dark-container dark:text-red-dark-item"}`}>
@@ -240,15 +245,20 @@ export default function CryptosTableSection(){
                                         {coins.price_change_percentage_24h > 0 && "+"}
                                         {coins.price_change_percentage_24h?.toFixed(1)}%
                                     </span>
-                                </div>}
+                                </div> : "-" }
                             </td> 
 
                             <td className="py-3">
-                                {coins?.total_volume?.toLocaleString("en-US", {style: "currency", currency: "USD"})}
+                                {coins.total_volume ?
+                                coins?.total_volume?.toLocaleString("en-US", {style: "currency", currency: "USD"}) : 
+                                "-"}
                             </td>
 
                             <td className="py-3">
-                                {coins.market_cap?.toLocaleString("en-US", {style: "currency", currency: "USD"})}
+                                {coins.market_cap ?
+                                coins.market_cap
+                                ?.toLocaleString("en-US", {style: "currency", currency: "USD"}) :
+                                "-"}
                             </td>  
 
                             <td className="py-3 pe-4">
@@ -278,7 +288,7 @@ export default function CryptosTableSection(){
                                     height={50}
                                     series={[{
                                         data: coins?.sparkline_in_7d?.price, 
-                                        name: `${coins.name}`,
+                                        name: `${coins?.name}`,
                                         color: `${coins?.price_change_percentage_7d_in_currency && 
                                         coins?.price_change_percentage_7d_in_currency > 0 ? "#22c55e" : 
                                         coins?.price_change_percentage_7d_in_currency && 

@@ -30,9 +30,9 @@ and you can run it with `docker run` command.
 on your system and Docker client is accessible from your command line
 - Then run this command:
 ```bash
-docker run --rm -p 5173:5173 
+docker run --rm -p 3000:3000 
 ```
-And you're done! visit the url displayed in your terminal to view the app.
+Visit `localhost:3000` to view the app.
 
 ### By setting up the dev environment
 To run this app locally make sure you have the following prerequisites on your system:
@@ -44,7 +44,7 @@ To run this app locally make sure you have the following prerequisites on your s
 - navigate to the folder where you want to clone the repository
 - then run:
 ```bash
-git clone https://github.com/Romulad/react-landing-page.git
+git clone https://github.com/Romulad/figma-to-code-ed2-week3.git
 ```
 This command will clone this repository to your local machine.
 
@@ -52,7 +52,7 @@ This command will clone this repository to your local machine.
 In your terminal :
 - Navigate to the new directory created by running:
   ```bash
-  cd react-landing-page
+  cd figma-to-code-ed2-week3
   ```
 - install the necessary packages by running this command:
   ```bash
@@ -62,5 +62,5 @@ In your terminal :
   ```bash
   npm run dev
   ```
-
-And you're done! visit the url displayed in your terminal to view the app.
+  
+And you're done! visit `localhost:3000` to view the app.
