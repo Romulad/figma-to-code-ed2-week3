@@ -1,0 +1,10 @@
+node_modules
+.next
+.gitignore
+views
+docker
+npm-debug.log*
+*.tsbuildinfo
+next-env.d.ts
+flow.md
+.env
