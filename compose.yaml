@@ -1,0 +1,20 @@
+name: "Tokena"
+
+services:
+  nextjs:
+    image: tokena
+    build:
+      context: .
+      dockerfile: docker/dev.Dockerfile
+    ports:
+      - 3000:300
+    secrets:
+      - gecko_api
+    environment:
+      GECKO_API_KEY: /run/secrets/gecko_api
+  
+secrets:
+  gecko_api:
+    file: ./gecko_api_key.txt    
+    
+    
