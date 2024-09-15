@@ -2,12 +2,12 @@ name: "Tokena"
 
 services:
   nextjs:
-    image: tokena
+    image: "tokena"
     build:
       context: .
-      dockerfile: docker/dev.Dockerfile
+      dockerfile: ./docker/dev.Dockerfile
     ports:
-      - 3000:300
+      - 3000:3000
     secrets:
       - gecko_api
     environment:
