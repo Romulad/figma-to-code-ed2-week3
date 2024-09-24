@@ -3,10 +3,5 @@ name: tokena
 services:
   nextjs:
     image: tokena
-    build:
-      context: .
-      dockerfile: ./docker/dev.Dockerfile
-    ports:
-      - 3000:3000
     env_file:
       - ./.env

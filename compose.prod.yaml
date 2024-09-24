@@ -1,0 +1,11 @@
+services:
+  nextjs:
+    build:
+      context: .
+      dockerfile: ./docker/prod.Dockerfile
+    ports:
+      - 8080:8080
+
+  nginx-server:
+    image: nginx:lts
+    
