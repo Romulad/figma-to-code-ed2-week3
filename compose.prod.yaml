@@ -3,8 +3,9 @@ services:
     build:
       context: .
       dockerfile: ./docker/prod.Dockerfile
-    ports:
-      - 8080:8080
+    container_name: nextjs
+    networks:
+      - tokena-net
 
   nginx-server:
     image: nginx-server
@@ -15,4 +16,9 @@ services:
       - 80:80
     depends_on:
       - nextjs
-    
+    networks:
+      - tokena-net
+
+networks:
+  tokena-net:
+    driver: bridge
